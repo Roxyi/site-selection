@@ -1,0 +1,12 @@
+body {
+    padding: 0;
+    font-family: helvetica, arial, sans-serif;
+}
+
+.map {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 100%;
+    top: 0;
+}
