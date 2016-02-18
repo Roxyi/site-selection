@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- CSS Imports -->
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/leaflet.css" />
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!-- Map -->
+    <div id="map" class="map"></div>
+
+    <!-- Javascript Imports -->
+    <script src="js/leaflet.js"></script>
+    <script src="js/underscore.js"></script>
+    <script src="js/jquery-2.2.0.js"></script>
+
+  </head>
+
+  <body>
+  <script>
+    var map = L.map('map', {
+      center: [39.9522, -75.1639],
+      zoom: 12
+    });
+    var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
+      attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      subdomains: 'abcd',
+      minZoom: 0,
+      maxZoom: 20,
+      ext: 'png'
+    }).addTo(map);
+
+    function clickFeatureStuff(feature, layer) {
+      layer.on('click', function (e) {
+          console.log(feature.properties);
+      });
+    }
+
+    $( document ).ready(function() {
+      $.getJSON('https://raw.githubusercontent.com/gist/Roxyi/4216ed4a770e6d027063/raw/d19af042b6728cc97e564af2c6a0c08ea71cdbcb/census2000.json', function(data) {
+        L.geoJson(data, {
+          onEachFeature: clickFeatureStuff,
+        }).addTo(map);
+      });
+    });
+  </script>
+  </body>
+</html>
